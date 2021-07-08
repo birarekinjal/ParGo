@@ -6,7 +6,7 @@ import {
   Redirect,
   useLocation,
 } from "react-router-dom";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Toaster } from "react-hot-toast";
 import { setReduxLoaderCount } from "../actions/loader";
 import UserRoute from "./userRoute";
@@ -17,7 +17,8 @@ import Profile from "../pages/profile";
 import Dashboard from "../pages/dashboard";
 import ManageUsers from "../pages/manageUsers";
 import EditUser from "../pages/editUser";
-
+import ListManagement from "../pages/creater/listManagement";
+import AddCreater from "../pages/creater/addCreater";
 // To lazy load the components and for better code splitting
 // const Login = lazy(() => import("../pages/login"));
 // const Dashboard = lazy(() => import("../pages/dashboard"));
@@ -35,12 +36,18 @@ const ScrollToTop = (props) => {
   return props.children;
 };
 
-const Routes = ({ token, loaderCount, setReduxLoaderCount, profile }) => {
-  useEffect(() => {
-    loaderCount > 0 && setReduxLoaderCount(0);
-  }, []);
+const Routes = () => {
+  const { profile, token, loaderCount } = useSelector((state) => ({
+    token: state.token,
+    loaderCount: state.loaderCount,
+    profile: state.profile,
+  }));
   let isAuthenticated = token;
   let isAdmin = profile && profile.is_admin;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    loaderCount > 0 && dispatch(setReduxLoaderCount(0));
+  }, []);
   return (
     <Router>
       {/* <Suspense fallback={<FullScreenLoader />}> */}
@@ -102,6 +109,22 @@ const Routes = ({ token, loaderCount, setReduxLoaderCount, profile }) => {
             loaderCount={loaderCount}
             exact
           />
+          <UserRoute
+            isAuthenticated={isAuthenticated}
+            component={ListManagement}
+            // isAdmin={isAdmin}
+            path="/creater"
+            loaderCount={loaderCount}
+            exact
+          />
+          <UserRoute
+            isAuthenticated={isAuthenticated}
+            component={AddCreater}
+            // isAdmin={isAdmin}
+            path="/add-creater"
+            loaderCount={loaderCount}
+            exact
+          />
         </ScrollToTop>
       </Switch>
       {/* </Suspense> */}
@@ -115,14 +138,4 @@ const Routes = ({ token, loaderCount, setReduxLoaderCount, profile }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  token: state.token,
-  loaderCount: state.loaderCount,
-  profile: state.profile,
-});
-
-const mapDispatchToProps = {
-  setReduxLoaderCount,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Routes);
+export default Routes;

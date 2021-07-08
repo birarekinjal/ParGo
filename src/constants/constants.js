@@ -127,9 +127,11 @@ const constants = {
     dashboardPlaceholder: "Dashboard",
     addUserPlaceholder: "Add User",
     manageUsersPlaceholder: "Manage Users",
+    createrPlaceHolder: "Creater Management",
   },
   tooltips: {
     exampleTooltip: "Example Tooltip",
   },
+  creater: {},
 };
 export default constants;

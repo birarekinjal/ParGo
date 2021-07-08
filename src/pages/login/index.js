@@ -1,9 +1,3 @@
-import Login from './login';
-import { connect } from 'react-redux';
-import { setUserToken } from '../../actions/login';
+import Login from "./login";
 
-const mapStateToProps = () => ({});
-
-const mapDispatchToProps = { setUserToken };
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default Login;

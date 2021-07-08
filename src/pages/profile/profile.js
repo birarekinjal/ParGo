@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { Container, Row, Col, Card, Form } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { Input, Button, ChangePasswordModal } from '../../components';
-import { updateProfileData } from '../../actions/profile';
-import { changePassword } from '../../apis/profile';
-import { useStateCallback, saveToken, showToast } from '../../utility/common';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import schema from '../../schema/profile';
-import { constants } from '../../constants';
-import '../../styles/profile.scss';
+import React, { useState } from "react";
+import { Container, Row, Col, Card, Form } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { Input, Button, ChangePasswordModal } from "../../components";
+import { updateProfileData } from "../../actions/profile";
+import { changePassword } from "../../apis/profile";
+import { useStateCallback, saveToken, showToast } from "../../utility/common";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import schema from "../../schema/profile";
+import { constants } from "../../constants";
+import "../../styles/profile.scss";
 
 const Profile = () => {
   const {
@@ -31,12 +31,16 @@ const Profile = () => {
 
   const toggleModal = () => setModalVisible(!isModalVisible);
 
-  const { register, handleSubmit, errors, formState } = useForm({
-    mode: 'onChange',
-    reValidateMode: 'onChange',
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, touchedFields },
+  } = useForm({
+    mode: "onChange",
+    reValidateMode: "onChange",
     defaultValues: {
-      firstName: profile.first_name,
-      lastName: profile.last_name,
+      firstName: profile?.first_name,
+      lastName: profile?.last_name,
     },
     resolver: yupResolver(schema),
   });
@@ -69,7 +73,7 @@ const Profile = () => {
         .then((res) => {
           if (res.data.status) {
             showToast(res.data.message);
-            let newToken = 'Bearer ' + res.data.token.access_token;
+            let newToken = "Bearer " + res.data.token.access_token;
             saveToken(newToken);
             toggleModal();
           } else {
@@ -80,7 +84,6 @@ const Profile = () => {
         .catch(() => setChangeBtnLoading(false));
     });
   };
-  const { touched } = formState;
 
   return (
     <Container>
@@ -96,9 +99,8 @@ const Profile = () => {
                       controlId="formFirstName"
                       placeholder={firstNamePlaceholder}
                       error={errors.firstName && errors.firstName.message}
-                      showError={touched && touched.firstName}
-                      inputRef={register}
-                      name="firstName"
+                      showError={touchedFields && touchedFields.firstName}
+                      registeredEvents={register("firstName")}
                       isRequired={true}
                       label={firstNamePlaceholder}
                     />
@@ -108,9 +110,8 @@ const Profile = () => {
                       controlId="formLastName"
                       placeholder={lastNamePlaceholder}
                       error={errors.lastName && errors.lastName.message}
-                      showError={touched && touched.lastName}
-                      inputRef={register}
-                      name="lastName"
+                      showError={touchedFields && touchedFields.lastName}
+                      registeredEvents={register("lastName")}
                       isRequired={true}
                       label={lastNamePlaceholder}
                     />

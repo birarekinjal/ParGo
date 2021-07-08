@@ -1,7 +1,7 @@
-import React from 'react';
-import { Form } from 'react-bootstrap';
-import { Checkbox } from 'pretty-checkbox-react';
-import 'pretty-checkbox/src/pretty-checkbox.scss';
+import React from "react";
+import { Form } from "react-bootstrap";
+import { Checkbox } from "pretty-checkbox-react";
+import "pretty-checkbox/src/pretty-checkbox.scss";
 
 const CustomCheckbox = ({
   controlId,
@@ -15,6 +15,7 @@ const CustomCheckbox = ({
   isControlled,
   onClick,
   dataFor,
+  registeredEvents,
 }) => {
   return (
     <Form.Group controlId={controlId}>
@@ -32,7 +33,8 @@ const CustomCheckbox = ({
           variant="thick"
           name={name}
           data-tip
-          data-for={dataFor}>
+          data-for={dataFor}
+        >
           {label}
         </Checkbox>
       ) : (
@@ -42,10 +44,10 @@ const CustomCheckbox = ({
           shape="curve"
           variant="thick"
           disabled={disabled}
-          ref={inputRef}
-          name={name}
+          {...(registeredEvents || {})}
           data-tip={dataFor}
-          data-for={dataFor}>
+          data-for={dataFor}
+        >
           {label}
         </Checkbox>
       )}

@@ -1,75 +1,66 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Container, Alert } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
-import { Input, Button } from '../../components';
-import { showToast, useStateCallback } from '../../utility/common';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import schema from '../../schema/login';
-import { setUserToken } from '../../actions/login';
-import { constants, messages } from '../../constants';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../styles/common/form.scss';
-import '../../styles/common/button.scss';
-import '../../styles/login.scss';
+import React, { useState, useEffect } from "react";
+import { Form, Container, Alert } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { Input, Button } from "../../components";
+import { showToast, useStateCallback } from "../../utility/common";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import schema from "../../schema/login";
+import { setUserToken } from "../../actions/login";
+import { constants, messages } from "../../constants";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../../styles/common/form.scss";
+import "../../styles/common/button.scss";
+import "../../styles/login.scss";
 
-const Login = ({ setUserToken }) => {
+const Login = () => {
   useEffect(() => {
-    if (localStorage.getItem('SHOW_TOAST')) {
-      localStorage.removeItem('SHOW_TOAST');
+    if (localStorage.getItem("SHOW_TOAST")) {
+      localStorage.removeItem("SHOW_TOAST");
       showToast(messages.sessionExpired);
     }
   }, []);
-  const {
-    title,
-    buttons,
-    emailPlaceholder,
-    passwordPlaceholder,
-  } = constants.loginPage;
+  const { title, buttons, emailPlaceholder, passwordPlaceholder } =
+    constants.loginPage;
 
   const [isLoading, setLoading] = useStateCallback(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
 
-  const { register, handleSubmit, errors, formState } = useForm({
-    mode: 'onChange',
-    reValidateMode: 'onChange',
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, touchedFields },
+  } = useForm({
+    mode: "onChange",
+    reValidateMode: "onChange",
     defaultValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
       // rememberMe: false,
     },
     resolver: yupResolver(schema),
   });
-
   const onSubmit = (data) => {
     setLoading(true, () => {
-      setUserToken(data)
+      dispatch(setUserToken(data));
       // .then((res) => {
       //   if (!res.status) {
-      //     setErrorMessage(res.error_message);
+      //     //setErrorMessage(res.error_message);
       //   }
       //   setLoading(false);
       // })
       // .catch(() => setLoading(false));
+      // setUserToken(data)
+      //   .then((res) => {
+      //     if (!res.status) {
+      //       setErrorMessage(res.error_message);
+      //     }
+      //     setLoading(false);
+      //   })
+      //   .catch(() => setLoading(false));
     });
-    // setLoading(false);
   };
-
-  // const onSubmit = (data) => {
-  //   setLoading(true, () => {
-  //     dispatch(setUserToken(data))
-  //       .then((res) => {
-  //         if (!res.status) {
-  //           setErrorMessage(res.error_message);
-  //         }
-  //         setLoading(false);
-  //       })
-  //       .catch(() => setLoading(false));
-
-  //   });
-  // };
-  const { touched } = formState;
 
   return (
     <div className="min-vh-100 d-flex justify-content-center align-items-center login-body">
@@ -85,9 +76,8 @@ const Login = ({ setUserToken }) => {
               controlId="formEmail"
               placeholder={emailPlaceholder}
               error={errors.email && errors.email.message}
-              showError={touched && touched.email}
-              inputRef={register}
-              name="email"
+              showError={touchedFields && touchedFields.email}
+              registeredEvents={register("email")}
               iconClass="fas fa-envelope"
             />
             <Input
@@ -95,9 +85,8 @@ const Login = ({ setUserToken }) => {
               type="password"
               placeholder={passwordPlaceholder}
               error={errors.password && errors.password.message}
-              showError={touched && touched.password}
-              inputRef={register}
-              name="password"
+              showError={touchedFields && touchedFields.password}
+              registeredEvents={register("password")}
               iconClass="fas fa-lock"
             />
             <div className="text-center">

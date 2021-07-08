@@ -1,12 +1,12 @@
-import axios from 'axios';
-import { messages } from '../constants';
-import { getToken, getBaseURL, showToast } from '../utility/common';
+import axios from "axios";
+import { messages } from "../constants";
+import { getToken, getBaseURL, showToast } from "../utility/common";
 
 const client = axios.create({
   baseURL: getBaseURL(),
   headers: {
-    'Content-Type': 'application/json',
-    Accept: 'application/json',
+    "Content-Type": "application/json",
+    Accept: "application/json",
   },
 });
 
@@ -19,7 +19,8 @@ const put = (url, body, headers = {}) => client.put(url, body, { headers });
 
 const patch = (url, body, headers = {}) => client.patch(url, body, { headers });
 
-const del = (url, body, headers = {}) => client.delete(url, body, { headers });
+const del = (url, body, headers = {}) =>
+  client.delete(url, { params: body, headers: headers });
 
 client.interceptors.request.use(async (config) => {
   config.headers.Authorization = await getToken();
@@ -29,15 +30,15 @@ client.interceptors.request.use(async (config) => {
 client.interceptors.response.use(
   function (response) {
     if (response.data && response.data.data && response.data.data.logout) {
-      localStorage.removeItem('TOKEN');
-      localStorage.setItem('SHOW_TOAST', true);
+      localStorage.removeItem("TOKEN");
+      localStorage.setItem("SHOW_TOAST", true);
     }
     return response;
   },
   function (error) {
     showToast(messages.tryAgain);
     return Promise.reject(error);
-  },
+  }
 );
 
 export { get, post, put, del, patch };

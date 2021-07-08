@@ -1,10 +1,10 @@
-import React from 'react';
-import { Modal, Input } from '../index';
-import { Form } from 'react-bootstrap';
-import { constants } from '../../constants';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import schema from '../../schema/changePassword';
+import React from "react";
+import { Modal, Input } from "../index";
+import { Form } from "react-bootstrap";
+import { constants } from "../../constants";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import schema from "../../schema/changePassword";
 
 const ChangePasswordModal = ({
   isModalVisible,
@@ -20,13 +20,17 @@ const ChangePasswordModal = ({
     footerButtons,
   } = constants.profile.changePasswordModal;
 
-  const { register, handleSubmit, errors, formState } = useForm({
-    mode: 'onChange',
-    reValidateMode: 'onChange',
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, touchedFields },
+  } = useForm({
+    mode: "onChange",
+    reValidateMode: "onChange",
     defaultValues: {
-      oldPassword: '',
-      newPassword: '',
-      confirmPassword: '',
+      oldPassword: "",
+      newPassword: "",
+      confirmPassword: "",
     },
     resolver: yupResolver(schema),
   });
@@ -34,37 +38,36 @@ const ChangePasswordModal = ({
   const modalFooterButtons = [
     {
       label: footerButtons.cancel,
-      className: 'cancel-btn',
+      className: "cancel-btn",
       isLoading: false,
       isDisabled: false,
       onClick: toggleModal,
-      variant: 'secondary',
+      variant: "secondary",
     },
     {
       label: footerButtons.change,
-      className: 'change-btn',
+      className: "change-btn",
       isLoading: isLoading,
       isDisabled: isLoading,
       onClick: handleSubmit(onChangePassword),
-      variant: 'success',
+      variant: "success",
     },
   ];
-  const { touched } = formState;
   return (
     <Modal
       title={title}
       isModalVisible={isModalVisible}
       buttons={modalFooterButtons}
       toggleModal={toggleModal}
-      modalClass="change-password-modal">
+      modalClass="change-password-modal"
+    >
       <Form onSubmit={handleSubmit(onChangePassword)}>
         <Input
           controlId="formOldPassword"
           type="password"
           error={errors.oldPassword && errors.oldPassword.message}
-          showError={touched && touched.oldPassword}
-          inputRef={register}
-          name="oldPassword"
+          showError={touchedFields && touchedFields.oldPassword}
+          registeredEvents={register("oldPassword")}
           isRequired={true}
           label={oldPasswordPlaceholder}
         />
@@ -72,9 +75,8 @@ const ChangePasswordModal = ({
           controlId="formNewPassword"
           type="password"
           error={errors.newPassword && errors.newPassword.message}
-          showError={touched && touched.newPassword}
-          inputRef={register}
-          name="newPassword"
+          showError={touchedFields && touchedFields.newPassword}
+          registeredEvents={register("newPassword")}
           isRequired={true}
           label={newPasswordPlaceholder}
         />
@@ -82,9 +84,8 @@ const ChangePasswordModal = ({
           controlId="formConfirmPassword"
           type="password"
           error={errors.confirmPassword && errors.confirmPassword.message}
-          showError={touched && touched.confirmPassword}
-          inputRef={register}
-          name="confirmPassword"
+          showError={touchedFields && touchedFields.confirmPassword}
+          registeredEvents={register("confirmPassword")}
           isRequired={true}
           label={confirmPasswordPlaceholder}
         />

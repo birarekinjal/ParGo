@@ -1,43 +1,40 @@
 import React from "react";
 import { Container, Row, Col, Card, Form } from "react-bootstrap";
-import { Input, Checkbox, Button } from "../../components";
-import { showToast, useStateCallback } from "../../utility/common";
+import { Input, Checkbox, Button } from "../../../components";
+import { showToast, useStateCallback } from "../../../utility/common";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import schema from "../../schema/addNewUser";
-import { constants } from "../../constants";
-import { addNewUser } from "../../apis/manageUsers";
-import "../../styles/addUser.scss";
+import schema from "../../../schema/editUser";
+import { constants } from "../../../constants";
+import { editUser } from "../../../apis/manageUsers";
+import "../../../styles/editUser.scss";
 
-const AddNewUser = () => {
+const AddCreater = ({ history }) => {
   const {
     title,
     buttons,
     emailPlaceholder,
-    passwordPlaceholder,
     adminPlaceholder,
-    confirmPasswordPlaceholder,
     firstNamePlaceholder,
     lastNamePlaceholder,
-  } = constants.addNewUser;
+  } = constants.editUser;
 
   const [isLoading, setLoading] = useStateCallback(false);
+
+  const { first_name, last_name, email, id, is_admin } =
+    history?.location?.state || {};
 
   const {
     register,
     handleSubmit,
     formState: { errors, touchedFields },
-    reset,
   } = useForm({
     mode: "onChange",
     reValidateMode: "onChange",
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      isAdmin: false,
+      firstName: first_name,
+      lastName: last_name,
+      isAdmin: is_admin,
     },
     resolver: yupResolver(schema),
   });
@@ -46,15 +43,12 @@ const AddNewUser = () => {
       const body = {
         first_name: data.firstName,
         last_name: data.lastName,
-        email: data.email,
         is_admin: data.isAdmin,
-        password: data.password,
       };
-      addNewUser(body)
+      editUser(id, body)
         .then((res) => {
           if (res.data.status) {
             showToast(res.data.message);
-            reset();
           } else {
             showToast(res.data.error_message);
           }
@@ -66,7 +60,7 @@ const AddNewUser = () => {
 
   return (
     <Container>
-      <Row className="add-user-form">
+      <Row className="edit-user-form">
         <Col lg={12} xl={10} className="offset-lg-0 offset-xl-1">
           <Card>
             <Card.Body className="pad-1">
@@ -96,35 +90,11 @@ const AddNewUser = () => {
                   <Col md={6}>
                     <Input
                       controlId="formEmail"
-                      error={errors.email && errors.email.message}
-                      showError={touchedFields && touchedFields.email}
-                      registeredEvents={register("email")}
-                      isRequired={true}
+                      name="email"
                       label={emailPlaceholder}
-                    />
-                  </Col>
-                  <Col md={6}>
-                    <Input
-                      controlId="formPassword"
-                      type="password"
-                      error={errors.password && errors.password.message}
-                      showError={touchedFields && touchedFields.password}
-                      registeredEvents={register("password")}
-                      isRequired={true}
-                      label={passwordPlaceholder}
-                    />
-                  </Col>
-                  <Col md={6}>
-                    <Input
-                      controlId="formConfirmPassword"
-                      type="password"
-                      error={
-                        errors.confirmPassword && errors.confirmPassword.message
-                      }
-                      showError={touchedFields && touchedFields.confirmPassword}
-                      registeredEvents={register("confirmPassword")}
-                      isRequired={true}
-                      label={confirmPasswordPlaceholder}
+                      isControlled={true}
+                      value={email}
+                      disabled={true}
                     />
                   </Col>
                   <Col md={6} className="inline-checkbox">
@@ -140,7 +110,7 @@ const AddNewUser = () => {
                     variant="success"
                     disabled={isLoading}
                     isLoading={isLoading}
-                    label={buttons.addUser}
+                    label={buttons.editUser}
                     onClick={handleSubmit(onSubmit)}
                   />
                 </Card.Footer>
@@ -153,4 +123,4 @@ const AddNewUser = () => {
   );
 };
 
-export default AddNewUser;
+export default AddCreater;

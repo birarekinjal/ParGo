@@ -1,6 +1,6 @@
-import React from 'react';
-import { Form, InputGroup } from 'react-bootstrap';
-import Button from './button';
+import React from "react";
+import { Form, InputGroup } from "react-bootstrap";
+import Button from "./button";
 
 const Input = ({
   controlId,
@@ -26,12 +26,14 @@ const Input = ({
   hasButton,
   buttonType,
   prependText,
-  hintText
+  hintText,
+  registeredEvents,
 }) => {
   return (
     <Form.Group
-      className={iconClass && !onButtonClick ? 'with-icon' : ''}
-      controlId={controlId}>
+      className={iconClass && !onButtonClick ? "with-icon" : ""}
+      controlId={controlId}
+    >
       {label && (
         <Form.Label>
           {label}
@@ -52,16 +54,13 @@ const Input = ({
             value={value}
           />
         ) : (
-            <Form.Control
-              name={name}
-              type={type}
-              placeholder={placeholder}
-              ref={inputRef}
-              disabled={disabled}
-              onChange={onChange}
-              onBlur={onBlur}
-            />
-          )}
+          <Form.Control
+            {...(registeredEvents || {})}
+            type={type}
+            placeholder={placeholder}
+            disabled={disabled}
+          />
+        )}
         {(buttonLabel || iconClass) && (
           <InputGroup.Append>
             {hasButton && (

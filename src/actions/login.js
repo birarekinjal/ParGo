@@ -1,8 +1,8 @@
-import { login } from '../apis/login';
-import { saveToken } from '../utility/common';
+import { login } from "../apis/login";
+import { saveToken } from "../utility/common";
 
-const SET_USER_TOKEN = 'SET_USER_TOKEN';
-const LOGOUT = 'LOGOUT';
+const SET_USER_TOKEN = "SET_USER_TOKEN";
+const LOGOUT = "LOGOUT";
 
 // const setUserToken = (body) => (dispatch) => {
 //   return login(body).then((res) => {
@@ -19,14 +19,14 @@ const LOGOUT = 'LOGOUT';
 // };
 
 const setUserToken = (body) => (dispatch) => {
-  let token = 'Bearer ' + 'abc'
+  let token = "Bearer " + "abc";
   saveToken(token);
   dispatch({
     type: SET_USER_TOKEN,
     payload: token,
   });
-  return 'hiii';
-}
+  return "hiii";
+};
 
 const logout = () => {
   return (dispatch) => {
