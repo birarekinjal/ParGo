@@ -11,13 +11,15 @@ import "../../../styles/editUser.scss";
 
 const AddCreater = ({ history }) => {
   const {
-    title,
-    buttons,
-    emailPlaceholder,
-    adminPlaceholder,
-    firstNamePlaceholder,
-    lastNamePlaceholder,
-  } = constants.editUser;
+    bioPlaceholder,
+    contactNoPlaceholder,
+    experiencePlaceholder,
+    locationPlaceholder,
+    namePlaceholder,
+    occuptionPlaceholder,
+    passionPlaceholder,
+    websitePlaceholder,
+  } = constants.addCreatorPlaceholder;
 
   const [isLoading, setLoading] = useStateCallback(false);
 
@@ -32,30 +34,36 @@ const AddCreater = ({ history }) => {
     mode: "onChange",
     reValidateMode: "onChange",
     defaultValues: {
-      firstName: first_name,
-      lastName: last_name,
-      isAdmin: is_admin,
+      name: "",
+      bio: "",
+      contactNo: "",
+      location: "",
+      occuption: "",
+      experience: "",
+      passion: "",
+      website: "",
     },
     resolver: yupResolver(schema),
   });
   const onSubmit = (data) => {
-    setLoading(true, () => {
-      const body = {
-        first_name: data.firstName,
-        last_name: data.lastName,
-        is_admin: data.isAdmin,
-      };
-      editUser(id, body)
-        .then((res) => {
-          if (res.data.status) {
-            showToast(res.data.message);
-          } else {
-            showToast(res.data.error_message);
-          }
-          setLoading(false);
-        })
-        .catch(() => setLoading(false));
-    });
+    console.log("formdata", data);
+    // setLoading(true, () => {
+    //   const body = {
+    //     first_name: data.firstName,
+    //     last_name: data.lastName,
+    //     is_admin: data.isAdmin,
+    //   };
+    //   editUser(id, body)
+    //     .then((res) => {
+    //       if (res.data.status) {
+    //         showToast(res.data.message);
+    //       } else {
+    //         showToast(res.data.error_message);
+    //       }
+    //       setLoading(false);
+    //     })
+    //     .catch(() => setLoading(false));
+    // });
   };
 
   return (
@@ -64,53 +72,134 @@ const AddCreater = ({ history }) => {
         <Col lg={12} xl={10} className="offset-lg-0 offset-xl-1">
           <Card>
             <Card.Body className="pad-1">
-              <Card.Title>{title}</Card.Title>
+              {/* <Card.Title>{title}</Card.Title> */}
               <Form onSubmit={handleSubmit(onSubmit)}>
                 <Row>
                   <Col md={6}>
                     <Input
+                      controlId="name"
+                      error={errors.name && errors.name.message}
+                      showError={touchedFields && touchedFields.name}
+                      registeredEvents={register("name")}
+                      name="name"
+                      isRequired={true}
+                      inputRef={register}
+                      placeholder={namePlaceholder}
+                      label={"Name"}
+                    />
+                    {/* <Input
                       controlId="formFirstName"
                       error={errors.firstName && errors.firstName.message}
                       showError={touchedFields && touchedFields.firstName}
-                      registeredEvents={register("firstName")}
+                      inputRef={register}
+                      name="firstName"
                       isRequired={true}
-                      label={firstNamePlaceholder}
+                      label={"Enter name"}
+                    /> */}
+                  </Col>
+                  <Col md={6}>
+                    <Input
+                      controlId="bio"
+                      error={errors.bio && errors.bio.message}
+                      showError={touchedFields && touchedFields.bio}
+                      registeredEvents={register("bio")}
+                      isRequired={true}
+                      placeholder={bioPlaceholder}
+                      label={"Bio"}
                     />
                   </Col>
                   <Col md={6}>
                     <Input
-                      controlId="formLastName"
-                      error={errors.lastName && errors.lastName.message}
-                      showError={touchedFields && touchedFields.lastName}
-                      registeredEvents={register("lastName")}
+                      controlId="contactNo"
+                      error={errors.contactNo && errors.contactNo.message}
+                      showError={touchedFields && touchedFields.contactNo}
+                      registeredEvents={register("contactNo")}
                       isRequired={true}
-                      label={lastNamePlaceholder}
+                      placeholder={contactNoPlaceholder}
+                      label={"Contact"}
                     />
                   </Col>
                   <Col md={6}>
+                    <Input
+                      controlId="experience"
+                      error={errors.experience && errors.experience.message}
+                      showError={touchedFields && touchedFields.experience}
+                      registeredEvents={register("experience")}
+                      isRequired={true}
+                      placeholder={experiencePlaceholder}
+                      label={"Experience"}
+                      type={"Number"}
+                    />
+                  </Col>
+                  <Col md={6}>
+                    <Input
+                      controlId="location"
+                      error={errors.location && errors.location.message}
+                      showError={touchedFields && touchedFields.location}
+                      registeredEvents={register("location")}
+                      isRequired={true}
+                      placeholder={locationPlaceholder}
+                      label={"Location"}
+                    />
+                  </Col>
+                  <Col md={6}>
+                    <Input
+                      controlId="occuption"
+                      error={errors.occuption && errors.occuption.message}
+                      showError={touchedFields && touchedFields.occuption}
+                      registeredEvents={register("occuption")}
+                      isRequired={true}
+                      placeholder={occuptionPlaceholder}
+                      label={"Occuption"}
+                    />
+                  </Col>
+                  <Col md={6}>
+                    <Input
+                      controlId="passion"
+                      error={errors.passion && errors.passion.message}
+                      showError={touchedFields && touchedFields.passion}
+                      registeredEvents={register("passion")}
+                      isRequired={true}
+                      placeholder={passionPlaceholder}
+                      label={"Passion"}
+                    />
+                  </Col>
+                  <Col md={6}>
+                    <Input
+                      controlId="website"
+                      error={errors.website && errors.website.message}
+                      showError={touchedFields && touchedFields.website}
+                      registeredEvents={register("website")}
+                      isRequired={true}
+                      placeholder={websitePlaceholder}
+                      label={"Website"}
+                    />
+                  </Col>
+
+                  {/* <Col md={6}>
                     <Input
                       controlId="formEmail"
                       name="email"
-                      label={emailPlaceholder}
+                      // label={emailPlaceholder}
                       isControlled={true}
                       value={email}
                       disabled={true}
                     />
-                  </Col>
-                  <Col md={6} className="inline-checkbox">
+                  </Col> */}
+                  {/* <Col md={6} className="inline-checkbox">
                     <Checkbox
                       controlId="isAdminCheckbox"
-                      label={adminPlaceholder}
+                      // label={adminPlaceholder}
                       registeredEvents={register("isAdmin")}
                     />
-                  </Col>
+                  </Col> */}
                 </Row>
                 <Card.Footer>
                   <Button
                     variant="success"
-                    disabled={isLoading}
-                    isLoading={isLoading}
-                    label={buttons.editUser}
+                    // disabled={isLoading}
+                    // isLoading={isLoading}
+                    label={"Save Details"}
                     onClick={handleSubmit(onSubmit)}
                   />
                 </Card.Footer>

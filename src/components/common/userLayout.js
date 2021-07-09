@@ -14,7 +14,7 @@ const UserLayout = (props) => {
         <Component {...rest} />
       </main>
       {loaderCount > 0 && <FullScreenLoader />}
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

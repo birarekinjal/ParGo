@@ -1,7 +1,7 @@
-import React from 'react';
-import { Table } from 'react-bootstrap';
-import { Pagination } from '../index';
-import { messages } from '../../constants';
+import React from "react";
+import { Table } from "react-bootstrap";
+import { Pagination } from "../index";
+import { messages } from "../../constants";
 
 const CustomTable = ({
   tableClass,
@@ -9,10 +9,14 @@ const CustomTable = ({
   children,
   pageCount,
   onPageChange,
-  activePage,
-  countText,
-  totalItemsCount,
-  pageTextHidden,
+  // activePage,
+  // countText,
+  // totalItemsCount,
+  // pageTextHidden,
+  onHeaderClick,
+  nextLabel,
+  breakLabel,
+  breakClassName,
 }) => {
   return (
     <div>
@@ -34,7 +38,7 @@ const CustomTable = ({
                         ))}
                     </th>
                   );
-                },
+                }
               )}
             </tr>
           </thead>
@@ -49,13 +53,17 @@ const CustomTable = ({
       </div>
       {children && pageCount > 1 && (
         <Pagination
-          page={activePage}
-          pageText={countText}
           onPageChange={onPageChange}
-          totalItemCount={totalItemsCount}
-          totalPages={pageCount}
-          color="grey"
-          pageTextHidden={pageTextHidden}
+          pageCount={pageCount}
+          previousLabel={"pre"}
+          nextLabel={"next"}
+          breakLabel={"..."}
+          breakClassName={"break-me"}
+          marginPagesDisplayed={5}
+          pageRangeDisplayed={5}
+          containerClassName={"pagination"}
+          subContainerClassName={"pages pagination"}
+          activeClassName={"active"}
         />
       )}
     </div>

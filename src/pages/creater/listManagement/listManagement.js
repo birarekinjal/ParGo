@@ -6,8 +6,21 @@ import { getUsers } from "../../../actions/manageUsers";
 import { showToast, useStateCallback } from "../../../utility/common";
 import { constants } from "../../../constants";
 import "../../../styles/manageUsers.scss";
+import fakeData from "../../creater/listManagement/fakeData";
+import _ from "lodash";
 
 const ListManagement = ({ history }) => {
+  const [data, setData] = useState("");
+  const [find, setFind] = useState("");
+  const [offset, setOffset] = useState(0);
+  const [perPage] = useState(10);
+  const [pageCount, setpageCount] = useState(0);
+  const [searchValue, setSearchValue] = useState("");
+  const [page, setPage] = useStateCallback(1);
+  const [isButtonLoading, setButtonLoading] = useStateCallback(false);
+
+  // console.log("fakeData", fakeData)
+
   const dispatch = useDispatch();
   const { users, profile } = useSelector((state) => ({
     users: state.users,
@@ -15,15 +28,14 @@ const ListManagement = ({ history }) => {
   }));
 
   useEffect(() => {
-    dispatch(getUsers({ search: "", page: 1, is_active: true })).then((res) => {
-      if (!res.status) {
-        showToast(res.error_message);
-      }
-    });
-  }, []);
-  const [searchValue, setSearchValue] = useState("");
-  const [page, setPage] = useStateCallback(1);
-  const [isButtonLoading, setButtonLoading] = useStateCallback(false);
+    // dispatch(getUsers({ search: "", page: 1, is_active: true })).then((res) => {
+    //   if (!res.status) {
+    //     showToast(res.error_message);
+    //   }
+    // });
+    getData();
+  }, [offset]);
+
   const onPageChange = (page) => {
     setPage(page, () =>
       dispatch(
@@ -41,6 +53,20 @@ const ListManagement = ({ history }) => {
   const onSearchValueChange = (e) => {
     setSearchValue(e.target.value);
   };
+
+  const handlePageClick = (e) => {
+    const selectedPage = e.selected;
+    setOffset(selectedPage * perPage);
+  };
+
+  const Ascending = () => {
+    setData(_.orderBy(data, ["name"], ["asc"]));
+  };
+
+  const Desending = () => {
+    setData(_.orderBy(data, ["name"], ["desc"]));
+  };
+
   const onSearchUser = () => {
     setButtonLoading(true, () => {
       setPage(1);
@@ -58,8 +84,23 @@ const ListManagement = ({ history }) => {
     history.push(`/edit-user/${user.id}`, user);
   };
   const onAddUser = () => {
-    history.push("/add-new-user");
+    history.push("/add-creater");
   };
+
+  const getData = () => {
+    const data = fakeData;
+    const slice = data.slice(offset, offset + perPage);
+    setData(slice);
+    setpageCount(Math.ceil(data.length / perPage));
+  };
+
+  const FilteredData =
+    data &&
+    data &&
+    data.filter((s) => {
+      return s.name.toLowerCase().includes(searchValue.toLocaleLowerCase());
+    });
+
   const { items, totalItemCount, totalPages } = users;
   const {
     adminPlaceholder,
@@ -84,6 +125,8 @@ const ListManagement = ({ history }) => {
                 prependIcon={true}
                 iconClass="fas fa-plus"
               />
+              <Button type={"button"} label={"Asc"} onClick={Ascending} />
+              <Button type={"button"} label={"Desc"} onClick={Desending} />
               <Form>
                 <Input
                   controlId="findUsers"
@@ -103,7 +146,7 @@ const ListManagement = ({ history }) => {
               </Form>
             </div>
           </Card.Title>
-          <Table
+          {/* <Table
             activePage={page}
             countText={pageText}
             pageCount={totalPages}
@@ -121,7 +164,8 @@ const ListManagement = ({ history }) => {
                     <td>{item.last_name}</td>
                     <td>
                       <i className="fas fa-envelope" />
-                      {item.email}
+                     
+                    {item.email}
                     </td>
                     <td>
                       <i className="fas fa-user" />
@@ -140,6 +184,28 @@ const ListManagement = ({ history }) => {
                   </tr>
                 );
               })}
+          </Table> */}
+
+          <Table
+            headers={headers}
+            onPageChange={handlePageClick}
+            breakClassName={"break-me"}
+            pageCount={pageCount}
+            // onHeaderClick={onHeaderClick}
+          >
+            {FilteredData &&
+              FilteredData.length > 0 &&
+              FilteredData.map((item, k) => (
+                <tr key={k}>
+                  <td>{item.id}</td>
+                  <td>{item.name}</td>
+                  <td>{item.bio}</td>
+                  <td>{item.contactNo}</td>
+                  <td>{item.location}</td>
+                  <td>{item.occuption}</td>
+                  <td>{item.passion}</td>
+                </tr>
+              ))}
           </Table>
         </Card.Body>
       </Card>

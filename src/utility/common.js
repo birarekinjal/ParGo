@@ -150,6 +150,10 @@ const getHeaderTitle = (path) => {
     return "Dashboard";
   } else if (path.match(/^\/add-new-user/)) {
     return "Add User";
+  } else if (path.match(/^\/creater/)) {
+    return "Creater";
+  } else if (path.match(/^\/add-creater/)) {
+    return "Add Creater";
   } else if (path.match(/^\/edit-user/)) {
     return "Edit User";
   } else if (path.match(/^\/manage-users/)) {
