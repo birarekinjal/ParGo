@@ -78,8 +78,8 @@ const AddCreater = ({ history }) => {
                   <Col md={6}>
                     <Input
                       controlId="name"
-                      error={errors.name && errors.name.message}
-                      showError={touchedFields && touchedFields.name}
+                      error={errors.name?.message}
+                      showError={touchedFields?.name}
                       registeredEvents={register("name")}
                       name="name"
                       isRequired={true}
@@ -100,8 +100,8 @@ const AddCreater = ({ history }) => {
                   <Col md={6}>
                     <Input
                       controlId="bio"
-                      error={errors.bio && errors.bio.message}
-                      showError={touchedFields && touchedFields.bio}
+                      error={errors?.bio?.message}
+                      showError={touchedFields?.bio}
                       registeredEvents={register("bio")}
                       isRequired={true}
                       placeholder={bioPlaceholder}
@@ -111,8 +111,8 @@ const AddCreater = ({ history }) => {
                   <Col md={6}>
                     <Input
                       controlId="contactNo"
-                      error={errors.contactNo && errors.contactNo.message}
-                      showError={touchedFields && touchedFields.contactNo}
+                      error={errors?.contactNo?.message}
+                      showError={touchedFields?.contactNo}
                       registeredEvents={register("contactNo")}
                       isRequired={true}
                       placeholder={contactNoPlaceholder}
@@ -122,8 +122,8 @@ const AddCreater = ({ history }) => {
                   <Col md={6}>
                     <Input
                       controlId="experience"
-                      error={errors.experience && errors.experience.message}
-                      showError={touchedFields && touchedFields.experience}
+                      error={errors?.experience?.message}
+                      showError={touchedFields?.experience}
                       registeredEvents={register("experience")}
                       isRequired={true}
                       placeholder={experiencePlaceholder}
@@ -134,8 +134,8 @@ const AddCreater = ({ history }) => {
                   <Col md={6}>
                     <Input
                       controlId="location"
-                      error={errors.location && errors.location.message}
-                      showError={touchedFields && touchedFields.location}
+                      error={errors?.location?.message}
+                      showError={touchedFields?.location}
                       registeredEvents={register("location")}
                       isRequired={true}
                       placeholder={locationPlaceholder}
@@ -145,8 +145,8 @@ const AddCreater = ({ history }) => {
                   <Col md={6}>
                     <Input
                       controlId="occuption"
-                      error={errors.occuption && errors.occuption.message}
-                      showError={touchedFields && touchedFields.occuption}
+                      error={errors?.occuption?.message}
+                      showError={touchedFields?.occuption}
                       registeredEvents={register("occuption")}
                       isRequired={true}
                       placeholder={occuptionPlaceholder}
@@ -156,8 +156,8 @@ const AddCreater = ({ history }) => {
                   <Col md={6}>
                     <Input
                       controlId="passion"
-                      error={errors.passion && errors.passion.message}
-                      showError={touchedFields && touchedFields.passion}
+                      error={errors?.passion?.message}
+                      showError={touchedFields?.passion}
                       registeredEvents={register("passion")}
                       isRequired={true}
                       placeholder={passionPlaceholder}
@@ -167,8 +167,8 @@ const AddCreater = ({ history }) => {
                   <Col md={6}>
                     <Input
                       controlId="website"
-                      error={errors.website && errors.website.message}
-                      showError={touchedFields && touchedFields.website}
+                      error={errors?.website?.message}
+                      showError={touchedFields?.website}
                       registeredEvents={register("website")}
                       isRequired={true}
                       placeholder={websitePlaceholder}

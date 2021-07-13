@@ -24,22 +24,17 @@ const CustomTable = ({
         <Table className={tableClass} hover>
           <thead>
             <tr>
-              {headers.map(
-                ({ icons, label, className, component, onHeaderClick }) => {
-                  return (
-                    <th className={className} onClick={onHeaderClick}>
-                      <span>{component || label}</span>
-                      {icons &&
-                        icons.map((icon) => (
-                          <i
-                            className={icon.className}
-                            onClick={icon.onClick}
-                          />
-                        ))}
-                    </th>
-                  );
-                }
-              )}
+              {headers.map(({ icons, label, className, component }) => {
+                return (
+                  <th className={className} onClick={onHeaderClick}>
+                    <span>{component || label}</span>
+                    {icons &&
+                      icons.map((icon) => (
+                        <i className={icon.className} onClick={icon.onClick} />
+                      ))}
+                  </th>
+                );
+              })}
             </tr>
           </thead>
           <tbody>

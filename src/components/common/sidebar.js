@@ -18,8 +18,13 @@ const Sidebar = ({ location }) => {
   let sidebarMenuClasses = getSidebarMenuClasses(location.pathname);
   const toggleSidebar = (value) => dispatch(setSidebarVisibility(value));
   const closeSidebar = () => toggleSidebar(false);
-  const { manageUsersPlaceholder, dashboardPlaceholder, createrPlaceHolder } =
-    constants.sidebar;
+  const {
+    manageUsersPlaceholder,
+    dashboardPlaceholder,
+    createrPlaceHolder,
+    AficionadoPlaceHolder,
+    InvitationPlaceholder,
+  } = constants.sidebar;
   return (
     <ProSidebar
       collapsed={isCollapsed}
@@ -68,6 +73,22 @@ const Sidebar = ({ location }) => {
         >
           <NavLink onClick={closeSidebar} to="/creater">
             {createrPlaceHolder}
+          </NavLink>
+        </MenuItem>
+        <MenuItem
+          className={sidebarMenuClasses.manageUsers}
+          icon={<i className="fa fa-user-plus" />}
+        >
+          <NavLink onClick={closeSidebar} to="/aficionado">
+            {AficionadoPlaceHolder}
+          </NavLink>
+        </MenuItem>
+        <MenuItem
+          className={sidebarMenuClasses.manageUsers}
+          icon={<i className="fa fa-user-plus" />}
+        >
+          <NavLink onClick={closeSidebar} to="/sendInvitation">
+            {InvitationPlaceholder}
           </NavLink>
         </MenuItem>
         {/* ) : (

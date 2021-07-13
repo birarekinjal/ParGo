@@ -19,6 +19,9 @@ import ManageUsers from "../pages/manageUsers";
 import EditUser from "../pages/editUser";
 import ListManagement from "../pages/creater/listManagement";
 import AddCreater from "../pages/creater/addCreater";
+import AddAficionado from "../pages/Aficionado/addAficionado";
+import ListAficionado from "../pages/Aficionado/listAficionado";
+import Sendinvitation from "../pages/Invitation/index";
 // To lazy load the components and for better code splitting
 // const Login = lazy(() => import("../pages/login"));
 // const Dashboard = lazy(() => import("../pages/dashboard"));
@@ -122,6 +125,30 @@ const Routes = () => {
             component={AddCreater}
             // isAdmin={isAdmin}
             path="/add-creater"
+            loaderCount={loaderCount}
+            exact
+          />
+          <UserRoute
+            isAuthenticated={isAuthenticated}
+            component={AddAficionado}
+            // isAdmin={isAdmin}
+            path="/add-aficionado"
+            loaderCount={loaderCount}
+            exact
+          />
+          <UserRoute
+            isAuthenticated={isAuthenticated}
+            component={ListAficionado}
+            // isAdmin={isAdmin}
+            path="/aficionado"
+            loaderCount={loaderCount}
+            exact
+          />
+          <UserRoute
+            isAuthenticated={isAuthenticated}
+            component={Sendinvitation}
+            // isAdmin={isAdmin}
+            path="/sendInvitation"
             loaderCount={loaderCount}
             exact
           />

@@ -102,7 +102,26 @@ const constants = {
       { label: "Passion" },
     ],
     buttons: {
-      add: "User",
+      add: "Creator",
+    },
+  },
+  manageAficionado: {
+    title: "List of Aficionado",
+    pageText: "User List",
+    searchText: "Find by Name or Email",
+    adminPlaceholder: "Admin",
+    userPlaceholder: "User",
+    headers: [
+      { label: "No." },
+      { label: "Name", className: "sorting" },
+      { label: "Bio" },
+      { label: "Contact No" },
+      { label: "Location" },
+      { label: "Occuption" },
+      { label: "Passion" },
+    ],
+    buttons: {
+      add: "Aficionado",
     },
   },
   companyTable: {
@@ -139,6 +158,8 @@ const constants = {
     addUserPlaceholder: "Add User",
     manageUsersPlaceholder: "Manage Users",
     createrPlaceHolder: "Creater Management",
+    AficionadoPlaceHolder: "Create Aficionado",
+    InvitationPlaceholder: "Invitation",
   },
   tooltips: {
     exampleTooltip: "Example Tooltip",

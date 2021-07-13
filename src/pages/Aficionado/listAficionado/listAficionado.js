@@ -9,7 +9,7 @@ import "../../../styles/manageUsers.scss";
 import fakeData from "../../creater/listManagement/fakeData";
 import _ from "lodash";
 
-const ListManagement = ({ history }) => {
+const ListAficionado = ({ history }) => {
   const [data, setData] = useState("");
   const [find, setFind] = useState("");
   const [offset, setOffset] = useState(0);
@@ -94,7 +94,7 @@ const ListManagement = ({ history }) => {
     history.push(`/edit-user/${user.id}`, user);
   };
   const onAddUser = () => {
-    history.push("/add-creater");
+    history.push("/add-aficionado");
   };
 
   const getData = () => {
@@ -120,7 +120,7 @@ const ListManagement = ({ history }) => {
     searchText,
     title,
     userPlaceholder,
-  } = constants.manageUsers;
+  } = constants.manageAficionado;
   return (
     <Container className="manage-users">
       <Card>
@@ -223,4 +223,4 @@ const ListManagement = ({ history }) => {
   );
 };
 
-export default ListManagement;
+export default ListAficionado;

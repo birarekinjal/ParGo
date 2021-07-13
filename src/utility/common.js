@@ -154,6 +154,10 @@ const getHeaderTitle = (path) => {
     return "Creater";
   } else if (path.match(/^\/add-creater/)) {
     return "Add Creater";
+  } else if (path.match(/^\/add-aficionado/)) {
+    return "Add Aficionado";
+  } else if (path.match(/^\/aficionado/)) {
+    return "Aficionado";
   } else if (path.match(/^\/edit-user/)) {
     return "Edit User";
   } else if (path.match(/^\/manage-users/)) {
