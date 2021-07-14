@@ -158,8 +158,8 @@ const constants = {
     addUserPlaceholder: "Add User",
     manageUsersPlaceholder: "Manage Users",
     createrPlaceHolder: "Creater Management",
-    AficionadoPlaceHolder: "Create Aficionado",
-    InvitationPlaceholder: "Invitation",
+    AficionadoPlaceHolder: "Aficionado Management",
+    InvitationPlaceholder: "Invitation Management",
   },
   tooltips: {
     exampleTooltip: "Example Tooltip",
