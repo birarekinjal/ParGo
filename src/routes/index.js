@@ -60,7 +60,7 @@ const Routes = () => {
             exact
             path="/"
             render={() => (
-              <Redirect to={isAuthenticated ? "/dashboard" : "/login"} />
+              <Redirect to={isAuthenticated ? "/creater" : "/login"} />
             )}
           />
           <Route
@@ -68,7 +68,7 @@ const Routes = () => {
             path="/login"
             render={(props) =>
               isAuthenticated ? (
-                <Redirect to="/dashboard" />
+                <Redirect to="/creater" />
               ) : (
                 <Login {...props} />
               )

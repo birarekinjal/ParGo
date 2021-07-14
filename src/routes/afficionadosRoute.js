@@ -6,14 +6,14 @@ const AdminRoute = ({
   component: Component,
   loaderCount,
   isAuthenticated,
-  isAdmin,
+  isAficionados,
   ...rest
 }) => {
   return (
     <Route
       {...rest}
       render={(props) =>
-        isAuthenticated && isAdmin ? (
+        isAuthenticated && isAficionados ? (
           <AdminLayout
             component={Component}
             loaderCount={loaderCount}

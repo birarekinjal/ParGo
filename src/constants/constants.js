@@ -164,6 +164,8 @@ const constants = {
   tooltips: {
     exampleTooltip: "Example Tooltip",
   },
-  creater: {},
+  sendInvitationPlaceHolder: {
+    emailPlaceHolder: "Email",
+  },
 };
 export default constants;

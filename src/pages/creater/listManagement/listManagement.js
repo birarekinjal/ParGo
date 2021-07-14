@@ -20,8 +20,6 @@ const ListManagement = ({ history }) => {
   const [isButtonLoading, setButtonLoading] = useStateCallback(false);
   const [sort, setSort] = useState(false);
 
-  // console.log("fakeData", fakeData)
-
   const dispatch = useDispatch();
   const { users, profile } = useSelector((state) => ({
     users: state.users,

@@ -46,15 +46,15 @@ const Sidebar = ({ location }) => {
         <i className="fas fa-times close-sidebar" onClick={closeSidebar} />
       </SidebarHeader>
       <Menu iconShape="round">
-        <MenuItem
+        {/* <MenuItem
           className={sidebarMenuClasses.dashboard}
           icon={<i className="fa fa-tachometer-alt" />}
         >
           <NavLink onClick={closeSidebar} to="/dashboard">
             {dashboardPlaceholder}
           </NavLink>
-        </MenuItem>
-        {profile.is_admin ? (
+        </MenuItem> */}
+        {/* {profile.is_admin ? (
           <MenuItem
             className={sidebarMenuClasses.manageUsers}
             icon={<i className="fa fa-user-plus" />}
@@ -65,7 +65,7 @@ const Sidebar = ({ location }) => {
           </MenuItem>
         ) : (
           <></>
-        )}
+        )} */}
         {/* {profile.is_admin ? ( */}
         <MenuItem
           className={sidebarMenuClasses.manageUsers}

@@ -14,12 +14,12 @@ import "../../styles/common/button.scss";
 import "../../styles/login.scss";
 
 const Login = () => {
-  useEffect(() => {
-    if (localStorage.getItem("SHOW_TOAST")) {
-      localStorage.removeItem("SHOW_TOAST");
-      showToast(messages.sessionExpired);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (localStorage.getItem("SHOW_TOAST")) {
+  //     localStorage.removeItem("SHOW_TOAST");
+  //     showToast(messages.sessionExpired);
+  //   }
+  // }, []);
   const { title, buttons, emailPlaceholder, passwordPlaceholder } =
     constants.loginPage;
 

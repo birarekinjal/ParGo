@@ -25,7 +25,7 @@ const setUserToken = (body) => (dispatch) => {
     type: SET_USER_TOKEN,
     payload: token,
   });
-  return "hiii";
+  return "res";
 };
 
 const logout = () => {
