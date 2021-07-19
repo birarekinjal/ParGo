@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Form, Container, Alert } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { Input, Button } from "../../components";
+import { Input, Button, Checkbox } from "../../components";
 import { showToast, useStateCallback } from "../../utility/common";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -12,7 +12,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../../styles/common/form.scss";
 import "../../styles/common/button.scss";
 import "../../styles/login.scss";
-
+import ForgotPassword from "../forgotPassword";
+import { useHistory } from "react-router";
 const Login = () => {
   // useEffect(() => {
   //   if (localStorage.getItem("SHOW_TOAST")) {
@@ -27,6 +28,10 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
 
+  const history = useHistory();
+
+  console.log("l", localStorage.username);
+
   const {
     register,
     handleSubmit,
@@ -35,15 +40,36 @@ const Login = () => {
     mode: "onChange",
     reValidateMode: "onChange",
     defaultValues: {
-      email: "",
+      email:
+        localStorage.isChecked && localStorage.username
+          ? localStorage.username
+          : "",
       password: "",
-      // rememberMe: false,
+      rememberMe:
+        localStorage.isChecked && localStorage.username
+          ? JSON.parse(localStorage.isChecked)
+          : false,
     },
     resolver: yupResolver(schema),
   });
+
   const onSubmit = (data) => {
+    const { email, rememberMe } = data;
+
+    if (rememberMe === true) {
+      localStorage.setItem("username", email);
+      localStorage.setItem("isChecked", rememberMe);
+    }
+    // else{
+    //   localStorage.removeItem('username')
+    //   localStorage.removeItem('isChecked')
+    // }
+
+    console.log("rememberMe", rememberMe);
+
     setLoading(true, () => {
       dispatch(setUserToken(data));
+
       // .then((res) => {
       //   if (!res.status) {
       //     //setErrorMessage(res.error_message);
@@ -60,6 +86,10 @@ const Login = () => {
       //   })
       //   .catch(() => setLoading(false));
     });
+  };
+
+  const handleChange = (e) => {
+    console.log("object", e.target, "checked", e.target.checked);
   };
 
   return (
@@ -89,6 +119,28 @@ const Login = () => {
               registeredEvents={register("password")}
               iconClass="fas fa-lock"
             />
+
+            <div>
+              <Checkbox
+                controlId="rememberMe"
+                dataFor="select-all"
+                error={errors?.rememberMe?.message}
+                showError={touchedFields?.rememberMe}
+                placeholder="Remember me"
+                name="rememberMe"
+                label="Remember Me"
+                registeredEvents={register("rememberMe")}
+              />
+
+              <a
+                href="javascript:;"
+                onClick={() => history.push("/forgot-password")}
+              >
+                Forgot Password?
+              </a>
+            </div>
+            <br></br>
+
             <div className="text-center">
               <Button
                 disabled={isLoading}

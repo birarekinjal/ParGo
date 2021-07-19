@@ -167,5 +167,21 @@ const constants = {
   sendInvitationPlaceHolder: {
     emailPlaceHolder: "Email",
   },
+  forgotPassword: {
+    title: "Forgot Password",
+    emailPlaceholder: "Email",
+    buttons: {
+      login: "Forgot Password",
+    },
+  },
+  resetPassword: {
+    title: "Reset Password",
+    rememberMePlaceholder: "Remember Me",
+    passwordPlaceholder: "Password",
+    confirmationPasswordPlaceholder: "Confirm Password",
+    buttons: {
+      login: "Reset Password",
+    },
+  },
 };
 export default constants;

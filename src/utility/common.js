@@ -162,6 +162,10 @@ const getHeaderTitle = (path) => {
     return "Edit User";
   } else if (path.match(/^\/sendInvitation/)) {
     return "Invitation";
+  } else if (path.match(/^\/forgot-password/)) {
+    return "ForgotPassword";
+  } else if (path.match(/^\/reset-password/)) {
+    return "ResetPassword";
   } else if (path.match(/^\/manage-users/)) {
     return "Manage Users";
   }

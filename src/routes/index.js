@@ -22,6 +22,8 @@ import AddCreater from "../pages/creater/addCreater";
 import AddAficionado from "../pages/Aficionado/addAficionado";
 import ListAficionado from "../pages/Aficionado/listAficionado";
 import Sendinvitation from "../pages/Invitation/index";
+import ForgotPassword from "../pages/forgotPassword";
+import ResetPassword from "../pages/resetPassword";
 // To lazy load the components and for better code splitting
 // const Login = lazy(() => import("../pages/login"));
 // const Dashboard = lazy(() => import("../pages/dashboard"));
@@ -74,6 +76,16 @@ const Routes = () => {
               )
             }
           />
+          <Route
+            path="/forgot-password"
+            render={(props) => <ForgotPassword {...props} />}
+          />
+
+          <Route
+            path="/reset-password"
+            render={(props) => <ResetPassword {...props} />}
+          />
+
           <UserRoute
             isAuthenticated={isAuthenticated}
             component={Dashboard}
@@ -136,6 +148,7 @@ const Routes = () => {
             loaderCount={loaderCount}
             exact
           />
+
           <UserRoute
             isAuthenticated={isAuthenticated}
             component={ListAficionado}
@@ -144,6 +157,7 @@ const Routes = () => {
             loaderCount={loaderCount}
             exact
           />
+
           <UserRoute
             isAuthenticated={isAuthenticated}
             component={Sendinvitation}

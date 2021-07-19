@@ -4,7 +4,7 @@ import { Input, Checkbox, Button } from "../../components";
 import { showToast, useStateCallback } from "../../utility/common";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import schema from "../../schema/editUser";
+import schema from "../../schema/invitation";
 import { constants } from "../../constants";
 import "../../styles/editUser.scss";
 
@@ -58,8 +58,8 @@ const SendInvitation = ({ history }) => {
                   <Col md={6}>
                     <Input
                       controlId="email"
-                      error={errors.email?.message}
-                      showError={touchedFields?.name}
+                      error={errors?.email?.message}
+                      showError={touchedFields?.email}
                       registeredEvents={register("email")}
                       name="email"
                       isRequired={true}

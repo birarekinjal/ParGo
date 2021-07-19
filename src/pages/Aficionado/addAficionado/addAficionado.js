@@ -78,7 +78,7 @@ const AddAficionado = ({ history }) => {
                   <Col md={6}>
                     <Input
                       controlId="name"
-                      error={errors.name?.message}
+                      error={errors?.name?.message}
                       showError={touchedFields?.name}
                       registeredEvents={register("name")}
                       name="name"
