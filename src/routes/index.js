@@ -24,6 +24,7 @@ import ListAficionado from "../pages/Aficionado/listAficionado";
 import Sendinvitation from "../pages/Invitation/index";
 import ForgotPassword from "../pages/forgotPassword";
 import ResetPassword from "../pages/resetPassword";
+import PageNotFound from "../pages/errors/index";
 // To lazy load the components and for better code splitting
 // const Login = lazy(() => import("../pages/login"));
 // const Dashboard = lazy(() => import("../pages/dashboard"));
@@ -57,116 +58,114 @@ const Routes = () => {
     <Router>
       {/* <Suspense fallback={<FullScreenLoader />}> */}
       <Switch>
-        <ScrollToTop>
-          <Route
-            exact
-            path="/"
-            render={() => (
-              <Redirect to={isAuthenticated ? "/creater" : "/login"} />
-            )}
-          />
-          <Route
-            exact
-            path="/login"
-            render={(props) =>
-              isAuthenticated ? (
-                <Redirect to="/creater" />
-              ) : (
-                <Login {...props} />
-              )
-            }
-          />
-          <Route
-            path="/forgot-password"
-            render={(props) => <ForgotPassword {...props} />}
-          />
+        {/* <ScrollToTop> */}
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <Redirect to={isAuthenticated ? "/creater" : "/login"} />
+          )}
+        />
+        <Route
+          exact
+          path="/login"
+          render={(props) =>
+            isAuthenticated ? <Redirect to="/creater" /> : <Login {...props} />
+          }
+        />
+        <Route
+          path="/forgot-password"
+          render={(props) => <ForgotPassword {...props} />}
+        />
 
-          <Route
-            path="/reset-password"
-            render={(props) => <ResetPassword {...props} />}
-          />
+        <Route
+          path="/reset-password"
+          render={(props) => <ResetPassword {...props} />}
+        />
 
-          <UserRoute
-            isAuthenticated={isAuthenticated}
-            component={Dashboard}
-            path="/dashboard"
-            loaderCount={loaderCount}
-            exact
-          />
-          <UserRoute
-            isAuthenticated={isAuthenticated}
-            component={Profile}
-            path="/profile"
-            loaderCount={loaderCount}
-            exact
-          />
-          <AdminRoute
-            isAuthenticated={isAuthenticated}
-            component={AddNewUser}
-            isAdmin={isAdmin}
-            path="/add-new-user"
-            loaderCount={loaderCount}
-            exact
-          />
-          <AdminRoute
-            isAuthenticated={isAuthenticated}
-            component={EditUser}
-            isAdmin={isAdmin}
-            path="/edit-user/:id"
-            loaderCount={loaderCount}
-            exact
-          />
-          <AdminRoute
-            isAuthenticated={isAuthenticated}
-            component={ManageUsers}
-            isAdmin={isAdmin}
-            path="/manage-users"
-            loaderCount={loaderCount}
-            exact
-          />
-          <UserRoute
-            isAuthenticated={isAuthenticated}
-            component={ListManagement}
-            // isAdmin={isAdmin}
-            path="/creater"
-            loaderCount={loaderCount}
-            exact
-          />
-          <UserRoute
-            isAuthenticated={isAuthenticated}
-            component={AddCreater}
-            // isAdmin={isAdmin}
-            path="/add-creater"
-            loaderCount={loaderCount}
-            exact
-          />
-          <UserRoute
-            isAuthenticated={isAuthenticated}
-            component={AddAficionado}
-            // isAdmin={isAdmin}
-            path="/add-aficionado"
-            loaderCount={loaderCount}
-            exact
-          />
+        <UserRoute
+          isAuthenticated={isAuthenticated}
+          component={Dashboard}
+          path="/dashboard"
+          loaderCount={loaderCount}
+          exact
+        />
+        <UserRoute
+          isAuthenticated={isAuthenticated}
+          component={Profile}
+          path="/profile"
+          loaderCount={loaderCount}
+          exact
+        />
+        <AdminRoute
+          isAuthenticated={isAuthenticated}
+          component={AddNewUser}
+          isAdmin={isAdmin}
+          path="/add-new-user"
+          loaderCount={loaderCount}
+          exact
+        />
+        <AdminRoute
+          isAuthenticated={isAuthenticated}
+          component={EditUser}
+          isAdmin={isAdmin}
+          path="/edit-user/:id"
+          loaderCount={loaderCount}
+          exact
+        />
+        <AdminRoute
+          isAuthenticated={isAuthenticated}
+          component={ManageUsers}
+          isAdmin={isAdmin}
+          path="/manage-users"
+          loaderCount={loaderCount}
+          exact
+        />
+        <UserRoute
+          isAuthenticated={isAuthenticated}
+          component={ListManagement}
+          // isAdmin={isAdmin}
+          path="/creater"
+          loaderCount={loaderCount}
+          exact
+        />
+        <UserRoute
+          isAuthenticated={isAuthenticated}
+          component={AddCreater}
+          // isAdmin={isAdmin}
+          path="/add-creater"
+          loaderCount={loaderCount}
+          exact
+        />
+        <UserRoute
+          isAuthenticated={isAuthenticated}
+          component={AddAficionado}
+          // isAdmin={isAdmin}
+          path="/add-aficionado"
+          loaderCount={loaderCount}
+          exact
+        />
 
-          <UserRoute
-            isAuthenticated={isAuthenticated}
-            component={ListAficionado}
-            // isAdmin={isAdmin}
-            path="/aficionado"
-            loaderCount={loaderCount}
-            exact
-          />
+        <UserRoute
+          isAuthenticated={isAuthenticated}
+          component={ListAficionado}
+          // isAdmin={isAdmin}
+          path="/aficionado"
+          loaderCount={loaderCount}
+          exact
+        />
 
-          <UserRoute
-            isAuthenticated={isAuthenticated}
-            component={Sendinvitation}
-            // isAdmin={isAdmin}
-            path="/sendInvitation"
-            loaderCount={loaderCount}
-            exact
-          />
-        </ScrollToTop>
+        <UserRoute
+          isAuthenticated={isAuthenticated}
+          component={Sendinvitation}
+          // isAdmin={isAdmin}
+          path="/sendInvitation"
+          loaderCount={loaderCount}
+          exact
+        />
+        <Route path="*" component={PageNotFound} />
+
+        {/* </ScrollToTop> */}
       </Switch>
       {/* </Suspense> */}
       <Toaster
